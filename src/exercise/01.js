@@ -3,15 +3,17 @@
 
 import * as React from 'react'
 
-function Counter({initialCount = 0, step = 1}) {
-  // 🐨 replace React.useState with React.useReducer.
-  // 💰 React.useReducer(countReducer, initialCount)
-  const [count, setCount] = React.useState(initialCount)
+function countReducer(previousCount, newCount) {
+  return newCount
+  //previousCount is the current value of count aka the "state"
+  //newCount is the value passed to setCount aka the "new state"
+}
 
-  // 💰 you can write the countReducer function so you don't have to make any
-  // changes to the next two lines of code! Remember:
-  // The 1st argument is called "state" - the current value of count
-  // The 2nd argument is called "newState" - the value passed to setCount
+function Counter({initialCount = 0, step = 1}) {
+  const [count, setCount] = React.useReducer(countReducer, initialCount)
+  // the two arguments passed into useReducer are:
+  // 1. the reducer function that accepts the current state and the dispatch action state
+  // 2. the initial state (here the initialCount)
   const increment = () => setCount(count + step)
   return <button onClick={increment}>{count}</button>
 }
